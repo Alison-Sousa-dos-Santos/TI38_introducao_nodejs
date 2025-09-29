@@ -1,5 +1,6 @@
 const express = require("express")
 const bd = require('./controllers/bd.js')
+require('dotenv').config()
 const cors = require("cors")
 let app = express()
 const PORT = 3200
@@ -28,15 +29,15 @@ app.post('/api/:tabela', async (req, res) => {
         //Extrai dados da requisição e transforma em array de valores
         let dados = Object.values(req.body).map((val) => val)
         let tabela = req.params.tabela
-        let resBd = await bd.inserir(tabela, dados)
+        let respBd = await bd.inserir(tabela, dados)
         res.json(respBd).status(201)
     } catch (error) {
-        res.json(erro).status(400)
+        res.json(error).status(400)
     }
 })
 
 //Leitura de dados
-app.get('api/:tabela', async (req,res)=>{
+app.get('/api/:tabela', async (req,res)=>{
     try{
         let tabela = req.params.tabela
         let resBd = await bd.ler(tabela)
@@ -46,7 +47,7 @@ app.get('api/:tabela', async (req,res)=>{
     }
 })
 
-app.get('api/:tabela/:id', async (req,res)=>{
+app.get('/api/:tabela/:id', async (req,res)=>{
     try{
         let {tabela, id} = req.params
         let resBd = await bd.ler(tabela, id)
@@ -57,7 +58,7 @@ app.get('api/:tabela/:id', async (req,res)=>{
 })
 
 // Atualização
-app.patch('api/:tabela/:id', async (req, res)=>{
+app.patch('/api/:tabela/:id', async (req, res)=>{
     try{
         let dados = Object.values(req.body).map((val) => val)
         let tabela = req.params
