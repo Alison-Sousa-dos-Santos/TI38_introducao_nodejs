@@ -81,6 +81,4 @@ app.delete('api/:tabela/:id', async (req,res)=>{
 
 app.use((req, res) => res.send("<h1>Erro 404 - URL não encontrada </h1>").status(404))
 
-
-
 app.listen(PORT, () => console.log(`Servidor rodando em: http://localhost:${PORT}`))
